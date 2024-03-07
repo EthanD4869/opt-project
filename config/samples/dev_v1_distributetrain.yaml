@@ -1,0 +1,70 @@
+apiVersion: dev.opt.sealos.io/v1
+kind: DistributeTrain
+metadata:
+  generation: 1
+  labels:
+    platform/business: algorithm
+    platform/create-by: platform
+    platform/p-kind: DistributeTrain
+    platform/p-name: distributetrain-sample
+  name: distributetrain-sample
+  namespace: opt-project-system
+spec:
+  serviceAccountName: opt-project-system
+  env:
+  - name: PYTHONUNBUFFERED
+    value: "0"
+  - name: ENABLE_USER_OP
+    value: "True"
+  - name: DATA_ROOT
+    value: /dataset
+  - name: NODE_NUM
+    value: "2"
+  - name: ONEFLOW_DEBUG_MODE
+    value: ""
+  - name: NCCL_DEBUG
+    value: INFO
+  - name: GPU_NUM_PER_NODE
+    value: "1"
+  image: ethandai4869/distributed:v1
+  imagePullPolicy: IfNotPresent
+  masterCmd: 'cd /workspace/20231123031342389lf61 && python3 distributed_data_parallel.py --epochs
+    2 --batch-size 32 --log-interval 20 --save-model'
+  masterResources:
+    limits:
+      cpu: 4000m
+      memory: 8192Mi
+      nvidia.com/gpu: "1"
+  nodeSelector: {}
+  size: 2
+  slaveCmd: 'cd /workspace/20231123031342389lf61 && python3 distributed_data_parallel.py --epochs
+    2 --batch-size 32 --log-interval 20 --save-model'
+  slaveResources:
+    limits:
+      cpu: 4000m
+      memory: 8192Mi
+      nvidia.com/gpu: "1"
+  tolerations: []
+  volumeMounts:
+  - mountPath: /dataset
+    name: volume-0
+    readOnly: false
+  - mountPath: /workspace
+    name: volume-1
+    readOnly: false
+  - mountPath: /model
+    name: volume-2
+    readOnly: false
+  volumes:
+  - hostPath:
+      path: /nfs/dubhe-prod/dataset/1/versionFile/V0001
+      type: Directory
+    name: volume-0
+  - hostPath:
+      path: /nfs/dubhe-prod/train-manage/1/train-1-20240117030021-v0001
+      type: Directory
+    name: volume-1
+  - hostPath:
+      path: /nfs/dubhe-prod/train-manage/1/train-1-20240117030021-v0001/out
+      type: Directory
+    name: volume-2

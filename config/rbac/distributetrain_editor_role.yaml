@@ -1,0 +1,32 @@
+# permissions for end users to edit distributetrains.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: distributetrain-editor-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: opt-project
+    app.kubernetes.io/part-of: opt-project
+    app.kubernetes.io/managed-by: kustomize
+  name: distributetrain-editor-role
+rules:
+- apiGroups:
+  - dev.opt.sealos.io
+  resources:
+  - distributetrains
+  - pods
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - dev.opt.sealos.io
+  resources:
+  - distributetrains/status
+  verbs:
+  - get

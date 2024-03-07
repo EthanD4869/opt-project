@@ -1,0 +1,136 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: distributetrains.dev.opt.sealos.io
+spec:
+  group: dev.opt.sealos.io
+  names:
+    kind: DistributeTrain
+    listKind: DistributeTrainList
+    plural: distributetrains
+    singular: distributetrain
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: DistributeTrain is the Schema for the distributetrains API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: DistributeTrainSpec defines the desired state of DistributeTrain
+            properties:
+              env:
+                items:
+                  description: EnvSpec defines the environment variable
+                  properties:
+                    name:
+                      type: string
+                    value:
+                      type: string
+                  type: object
+                type: array
+              foo:
+                description: Foo is an example field of DistributeTrain. Edit distributetrain_types.go
+                  to remove/update
+                type: string
+              image:
+                type: string
+              imagePullPolicy:
+                type: string
+              masterCmd:
+                type: string
+              masterResources:
+                description: ResourceLimits defines the resource limits
+                properties:
+                  limits:
+                    description: ResourceValues defines the CPU, memory, and GPU values
+                    properties:
+                      cpu:
+                        type: string
+                      memory:
+                        type: string
+                      nvidia.com/gpu:
+                        type: string
+                    type: object
+                type: object
+              nodeSelector:
+                additionalProperties:
+                  type: string
+                type: object
+              serviceAccountName:
+                type: string
+              size:
+                type: integer
+              slaveCmd:
+                type: string
+              slaveResources:
+                description: ResourceLimits defines the resource limits
+                properties:
+                  limits:
+                    description: ResourceValues defines the CPU, memory, and GPU values
+                    properties:
+                      cpu:
+                        type: string
+                      memory:
+                        type: string
+                      nvidia.com/gpu:
+                        type: string
+                    type: object
+                type: object
+              tolerations:
+                items:
+                  description: Toleration defines the toleration values
+                  type: object
+                type: array
+              volumeMounts:
+                items:
+                  description: VolumeMount defines the volume mount configuration
+                  properties:
+                    mountPath:
+                      type: string
+                    name:
+                      type: string
+                    readOnly:
+                      type: boolean
+                  type: object
+                type: array
+              volumes:
+                items:
+                  description: Volume defines the volume configuration
+                  properties:
+                    hostPath:
+                      description: HostPath defines the host path configuration
+                      properties:
+                        path:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    name:
+                      type: string
+                  type: object
+                type: array
+            type: object
+          status:
+            description: DistributeTrainStatus defines the observed state of DistributeTrain
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

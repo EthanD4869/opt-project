@@ -1,0 +1,12 @@
+apiVersion: dev.opt.sealos.io/v1
+kind: Job
+metadata:
+  labels:
+    app.kubernetes.io/name: job
+    app.kubernetes.io/instance: job-sample
+    app.kubernetes.io/part-of: opt-project
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: opt-project
+  name: job-sample
+spec:
+  # TODO(user): Add fields here

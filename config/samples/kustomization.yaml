@@ -1,0 +1,5 @@
+## Append samples of your project ##
+resources:
+- dev_v1_job.yaml
+- dev_v1_distributetrain.yaml
+#+kubebuilder:scaffold:manifestskustomizesamples
